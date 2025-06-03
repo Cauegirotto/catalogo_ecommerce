@@ -31,8 +31,9 @@ Listagem de Produtos
 git clone [catalogo](https://github.com/Cauegirotto/catalogo_ecommerce/tree/master)
 cd catálogo_ecommerce
 npm install
-
 npm run dev
+
+
 ![Captura de tela 2025-06-03 195657](https://github.com/user-attachments/assets/9e35437b-ee3b-47dd-a120-645a6133c143)
 
 ![Captura de tela 2025-06-03 195619](https://github.com/user-attachments/assets/24b1bed4-145d-4356-a8b2-303ec763dc1b)
