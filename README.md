@@ -1,29 +1,38 @@
-# catalogo_ecommerce
+Listagem de Produtos
+  - Exibe todos os produtos com nome, imagem, preço, categoria e estoque.
 
-This template should help get you started developing with Vue 3 in Vite.
+- Paginação
+  - Navegação por páginas com limite de 9 produtos por página.
 
-## Recommended IDE Setup
+- Visualização de Detalhes
+  - Ao clicar em um produto, o usuário é levado a uma página de detalhes completos.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Menu de Categorias
+  - Categorias exibidas em um menu lateral.
+  - Ao clicar, mostra somente os produtos da categoria selecionada.
 
-## Customize configuration
+- Busca em Tempo Real
+  - Campo de busca filtra os produtos à medida que o usuário digita.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- Estilização Responsiva com TailwindCSS
+  - Design limpo, responsivo e moderno.
 
-## Project Setup
+ Tecnologias Utilizadas
 
-```sh
+- Vue.js 3
+- Vite
+- Axios
+- Tailwind CSS
+
+
+
+1. Clone o repositório
+
+git clone [catalogo](https://github.com/Cauegirotto/catalogo_ecommerce/tree/master)
+cd caálogo_ecommerce
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
-```
 
-### Compile and Minify for Production
+Abra http://localhost:5173/ para ver o projeto em execução.
 
-```sh
-npm run build
-```
