@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white p-6 rounded shadow">
-    <button @click="$router.push({ name: 'ProductList' })" class="text-blue-600 mb-4">← Back to Products</button>
+    <button @click="$router.push({ name: 'ListaProdutos' })" class="text-blue-600 mb-4">← Back to Products</button>
     <div v-if="product" class="flex gap-4">
       <img :src="product.thumbnail" alt="Product image" class="w-1/2 h-64 object-cover rounded" />
       <div>
@@ -31,7 +31,7 @@ export default {
       const productId = route.query.id
       if (productId) {
         try {
-          const response = await axios.get('https://dummyjson.com/products/${productId}')
+          const response = await axios.get(`https://dummyjson.com/products/${productId}`)
           product.value = response.data
         } catch (error) {
           console.error('Error fetching product:', error)

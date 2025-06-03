@@ -5,7 +5,7 @@
         v-for="product in products"
         :key="product.id"
         class="bg-white p-4 rounded shadow hover:shadow-lg cursor-pointer"
-        @click="$router.push({ name: 'ProductDetails', query: { id: product.id } })"
+        @click="$router.push({ name: 'DetalheProdutos', query: { id: product.id } })"
       >
         <img :src="product.thumbnail" alt="Product image" class="w-full h-48 object-cover rounded" />
         <h3 class="text-lg font-semibold mt-2">{{ product.title }}</h3>
