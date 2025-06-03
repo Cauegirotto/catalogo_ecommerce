@@ -29,7 +29,7 @@ Listagem de Produtos
 1. Clone o repositório
 
 git clone [catalogo](https://github.com/Cauegirotto/catalogo_ecommerce/tree/master)
-cd caálogo_ecommerce
+cd catálogo_ecommerce
 npm install
 
 npm run dev
