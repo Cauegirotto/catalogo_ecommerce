@@ -1,7 +1,9 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-gray-100">
-
-    <header class="bg-blue-600 text-white p-4 shadow-md">
+  <div v-if="isLoading" class="min-h-screen flex items-center justify-center bg-gray-100">
+    <p class="text-gray-600">Loading...</p>
+  </div>
+  <div v-else class="min-h-screen flex flex-col bg-gray-100">
+    <header class="bg-purple-900 text-white p-4 shadow-md">
       <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-2xl font-bold">Catálogo E-commerce</h1>
         <input
@@ -13,10 +15,8 @@
         />
       </div>
     </header>
-
-
     <div class="container mx-auto flex flex-1 gap-4 p-4">
-      <CategoryMenu :categories="categories" @filter="filterByCategory" />
+      <CategoryMenuView :categories="categories" @filter="filterByCategory" />
       <router-view
         :products="displayedProducts"
         :total-pages="totalPages"
@@ -28,52 +28,36 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-import axios from 'axios'
-import CategoryMenu from './components/MenuCategoria.vue'
+import { ref } from 'vue'
+import CategoryMenuView from '@/views/CategoryMenuView.vue'
+import ProductService from '@/services/ProductService.js'
+import FilterService from '@/services/FilterService.js'
 
 export default {
-  components: { CategoryMenu },
+  components: { CategoryMenuView },
   setup() {
     const products = ref([])
     const categories = ref([])
     const selectedCategory = ref('')
     const searchQuery = ref('')
     const currentPage = ref(1)
-    const productsPerPage = 9
+    const isLoading = ref(true)
 
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://dummyjson.com/products?limit=100')
-        products.value = response.data.products
+        products.value = await ProductService.getProducts()
         categories.value = [...new Set(products.value.map(p => p.category))]
       } catch (error) {
         console.error('Error fetching products:', error)
+      } finally {
+        isLoading.value = false
       }
     }
 
-    const filteredProducts = computed(() => {
-      let filtered = products.value
-      if (selectedCategory.value) {
-        filtered = filtered.filter(p => p.category === selectedCategory.value)
-      }
-      if (searchQuery.value) {
-        filtered = filtered.filter(p =>
-          p.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-        )
-      }
-      return filtered
-    })
+    const filterService = new FilterService(products, selectedCategory, searchQuery, currentPage)
 
-    const totalPages = computed(() =>
-      Math.ceil(filteredProducts.value.length / productsPerPage)
-    )
-
-    const displayedProducts = computed(() => {
-      const start = (currentPage.value - 1) * productsPerPage
-      const end = start + productsPerPage
-      return filteredProducts.value.slice(start, end)
-    })
+    const displayedProducts = filterService.displayedProducts
+    const totalPages = filterService.totalPages
 
     const filterByCategory = (category) => {
       selectedCategory.value = category
@@ -95,13 +79,13 @@ export default {
       selectedCategory,
       searchQuery,
       currentPage,
-      productsPerPage,
       displayedProducts,
       totalPages,
       filterByCategory,
       searchProducts,
-      changePage
+      changePage,
+      isLoading,
     }
-  }
+  },
 }
 </script>
